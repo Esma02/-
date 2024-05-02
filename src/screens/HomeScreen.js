@@ -13,7 +13,7 @@ import {
 } from "react-native-heroicons/outline";
 import { StatusBar } from "expo-status-bar";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import Categories from  "C:\Users\Hp\Desktop\mobil\recipe\src\components\Categories.js";
+import Categories from "../components/Categories";
 import axios from "axios";
 //import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 //import Recipes from "../components/Recipes";
@@ -25,11 +25,11 @@ export default function HomeScreen() {
 
   useEffect(() => {
     getCategories();
-    //getRecipes();
+    getRecipes();
   }, []);
 
   const handleChangeCategory = (category) => {
-    //getRecipes(category);
+    getRecipes(category);
     setActiveCategory(category);
     setMeals([]);
   };
@@ -96,7 +96,7 @@ export default function HomeScreen() {
                 }}
                 className="font-bold text-neutral-800"
               >
-                Pratik Tarifler
+                Pratik Kolay ve 
               </Text>
             </View>
 
@@ -106,7 +106,7 @@ export default function HomeScreen() {
               }}
               className="font-extrabold text-neutral-800"
             >
-              Lezzetli Yemek <Text className="text-[#f64e32]">Aşkına</Text>
+              Leziz Yemekler <Text className="text-[#FF6633]">Aşkına</Text>
             </Text>
           </View>
 
@@ -120,7 +120,7 @@ export default function HomeScreen() {
               />
             </View>
             <TextInput
-              placeholder="En Lezzetli Tarifleri Keşfedin"
+              placeholder="Favori Yemeğini Ara"
               placeholderTextColor={"gray"}
               style={{
                 fontSize: hp(1.7),
@@ -129,16 +129,24 @@ export default function HomeScreen() {
             />
           </View>
 
-           
-            
-          
-          
-            
+          {/* Categories */}
+          <View>
+            {categories.length > 0 && (
+              <Categories
+                categories={categories}
+                activeCategory={activeCategory}
+                handleChangeCategory={handleChangeCategory}
+              />
+            )}
+          </View>
 
-
+          {/* Recipes Meal */}
+          <View>
+            <Recipes meals={ meals} categories= {categories}/>
+          </View>
+          
         </ScrollView>
       </SafeAreaView>
-      
     </View>
-  )
+  );
 }
